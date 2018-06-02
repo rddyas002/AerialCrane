@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "lib/mavlink/include/mavlink/ardupilotmega/mavlink.h"
 
 namespace Ui {
 class MainWindow;

@@ -1,0 +1,3 @@
+[submodule "Gui/AerialCraneCommandCenter/lib/mavlink/include/mavlink"]
+	path = Gui/AerialCraneCommandCenter/lib/mavlink/include/mavlink
+	url = https://github.com/mavlink/c_library_v2.git
