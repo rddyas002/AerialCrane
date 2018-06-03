@@ -4,7 +4,8 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    QSerialPort serial;
+    QSerialPort *m_serial = new QSerialPort("mavSerial");
+
     printf("Hello world!\n");
 
     return a.exec();
