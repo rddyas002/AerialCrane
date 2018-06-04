@@ -8,6 +8,9 @@
 
 #include "lib/mavlink/include/mavlink/ardupilotmega/mavlink.h"
 
+#include "vehicle.h"
+
+#define MAX_MAV_VEHICLES    3
 #define MAVLINK_UDP_PORT1    14560
 #define MAVLINK_UDP_PORT2    14570
 
@@ -23,17 +26,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void readPendingDatagramsSocket1();
-    void readPendingDatagramsSocket2();
-
 private:
-
     Ui::MainWindow *ui;
-
-    QUdpSocket *udpSocket[2];
-    mavlink_message_t msg[2];
-    mavlink_status_t status[2];
+    Vehicle *mav_vehicles[MAX_MAV_VEHICLES];
 };
 
 #endif // MAINWINDOW_H
