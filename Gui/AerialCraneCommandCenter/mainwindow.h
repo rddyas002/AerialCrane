@@ -8,7 +8,8 @@
 
 #include "lib/mavlink/include/mavlink/ardupilotmega/mavlink.h"
 
-#define MAVLINK_UDP_PORT    14551
+#define MAVLINK_UDP_PORT1    14560
+#define MAVLINK_UDP_PORT2    14570
 
 namespace Ui {
 class MainWindow;
@@ -23,17 +24,16 @@ public:
     ~MainWindow();
 
 private slots:
-    void serialReceived();
-    void readPendingDatagrams();
+    void readPendingDatagramsSocket1();
+    void readPendingDatagramsSocket2();
 
 private:
-    void processDataReceived(QByteArray ba);
 
     Ui::MainWindow *ui;
-    QSerialPort *serialPort;
-    QUdpSocket *udpSocket;
-    mavlink_message_t msg;
-    mavlink_status_t status;
+
+    QUdpSocket *udpSocket[2];
+    mavlink_message_t msg[2];
+    mavlink_status_t status[2];
 };
 
 #endif // MAINWINDOW_H
