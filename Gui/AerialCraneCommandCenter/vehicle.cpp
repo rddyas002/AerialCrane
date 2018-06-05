@@ -13,7 +13,7 @@ void Vehicle::readData()
         QNetworkDatagram datagram = udp_socket->receiveDatagram();
         for (int i = 0; i < datagram.data().length(); i++){
             if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
-                //printf("Received message with ID %d, sequence: %d from component %d of system %d\n", msg.msgid, msg.seq, msg.compid, msg.sysid);
+                printf("Received message with ID %d, sequence: %d from component %d of system %d\n", msg.msgid, msg.seq, msg.compid, msg.sysid);
 
                 if (msg.msgid == MAVLINK_MSG_ID_HEARTBEAT){
                     mavlink_heartbeat_t mavlink_heartbeat;
@@ -24,7 +24,6 @@ void Vehicle::readData()
                            mavlink_heartbeat.autopilot);
 
                 }
-
           }
         }
     }

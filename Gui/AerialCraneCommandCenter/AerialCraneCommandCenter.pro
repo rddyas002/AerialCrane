@@ -26,11 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        vehicle.cpp
+        vehicle.cpp \
+        decodemavpackets.cpp \
+        connection.cpp
 
 HEADERS += \
         mainwindow.h \
-        vehicle.h
+        vehicle.h \
+        decodemavpackets.h \
+        connection.h
 
 FORMS += \
         mainwindow.ui

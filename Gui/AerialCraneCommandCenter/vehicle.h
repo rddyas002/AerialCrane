@@ -11,17 +11,20 @@
 
 class Vehicle : public QObject{
    Q_OBJECT
+
 public:
     Vehicle(uint32_t port);
     ~Vehicle();
+
 public slots:
     void readData();
+
+signals:
 
 private:
     QUdpSocket * udp_socket;
     mavlink_message_t msg;
     mavlink_status_t status;
-
 };
 
 #endif // VEHICLE_H

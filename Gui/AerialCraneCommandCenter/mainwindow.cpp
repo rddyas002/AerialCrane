@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -8,8 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mav_vehicles[0] = new Vehicle(MAVLINK_UDP_PORT1);
-    mav_vehicles[1] = new Vehicle(MAVLINK_UDP_PORT2);
+    mav_vehicles[0] = new Connection(MAVLINK_UDP_IP, MAVLINK_UDP_PORT1);
+    //vehicles[0] = new Vehicle(MAVLINK_UDP_PORT1);
+    //decode[0] = new DecodeMavPackets(mav_vehicles[0]);
 }
 
 
@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    //delete mav_vehicles[0];
 }
 
 
