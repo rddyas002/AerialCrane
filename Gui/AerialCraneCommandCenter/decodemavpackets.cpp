@@ -3,7 +3,8 @@
 
 DecodeMavPackets::DecodeMavPackets(Connection * connection)
 {
-    connect(connection, SIGNAL(connection->MavLinkPacketReceived(mavlink_message_t*)), this, SLOT(decodePacket(mavlink_message_t*)));
+    connect(connection, SIGNAL(MavLinkPacketReceived(const mavlink_message_t *)),
+            this, SLOT(decodePacket(const mavlink_message_t *)));
 }
 
 void DecodeMavPackets::decodePacket(const mavlink_message_t * msg){

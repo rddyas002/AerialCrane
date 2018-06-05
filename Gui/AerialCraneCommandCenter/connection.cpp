@@ -16,8 +16,7 @@ void Connection::readData()
         QNetworkDatagram datagram = udp_socket->receiveDatagram();
         for (int i = 0; i < datagram.data().length(); i++){
             if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
-                qDebug() << "Received Heartbeat from ID: " << msg.sysid;
-                emit MavLinkPacketReceived(&msg);
+                emit Connection::MavLinkPacketReceived(&msg);
           }
         }
     }

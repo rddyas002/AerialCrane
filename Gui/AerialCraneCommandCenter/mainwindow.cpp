@@ -7,9 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mav_vehicles[0] = new Connection(MAVLINK_UDP_IP, MAVLINK_UDP_PORT1);
-    //vehicles[0] = new Vehicle(MAVLINK_UDP_PORT1);
-    //decode[0] = new DecodeMavPackets(mav_vehicles[0]);
+    mav_vehicles[0] = new Connection(MAVLINK_UDP_LOCAL, MAVLINK_UDP_PORT1);
+    decode[0] = new DecodeMavPackets(mav_vehicles[0]);
 }
 
 
