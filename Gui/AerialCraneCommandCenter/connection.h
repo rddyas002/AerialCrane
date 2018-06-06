@@ -5,6 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QUdpSocket>
 #include <QNetworkDatagram>
+#include <QElapsedTimer>
 
 #include "lib/mavlink/include/mavlink/ardupilotmega/mavlink.h"
 
@@ -16,12 +17,13 @@ public:
     ~Connection();
 
 signals:
-    void MavLinkPacketReceived(const mavlink_message_t * msg);
+    void MavLinkPacketReceived(const mavlink_message_t *msg, const qint64 timestamp);
 
 public slots:
     void readData();
 
 private:
+    QElapsedTimer timer;
     QUdpSocket * udp_socket;
     mavlink_message_t msg;
     mavlink_status_t status;

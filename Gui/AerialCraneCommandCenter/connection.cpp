@@ -2,6 +2,7 @@
 
 Connection::Connection(const char * host_address, uint32_t port)
 {
+    timer.start();
     QHostAddress hostAddress = QHostAddress(host_address);
     udp_socket = new QUdpSocket(this);
     udp_socket->bind(hostAddress, port);
@@ -16,7 +17,7 @@ void Connection::readData()
         QNetworkDatagram datagram = udp_socket->receiveDatagram();
         for (int i = 0; i < datagram.data().length(); i++){
             if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
-                emit Connection::MavLinkPacketReceived(&msg);
+                emit Connection::MavLinkPacketReceived(&msg, timer.elapsed());
           }
         }
     }

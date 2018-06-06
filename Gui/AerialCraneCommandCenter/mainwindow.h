@@ -15,7 +15,8 @@
 #define MAX_MAV_VEHICLES    3
 #define MAVLINK_UDP_IP      "10.24.5.30"
 #define MAVLINK_UDP_LOCAL   "127.0.0.1"
-#define MAVLINK_UDP_PORT1    14560
+#define MAVLINK_UDP_IP2      "192.168.4.2"
+#define MAVLINK_UDP_PORT1    14550
 #define MAVLINK_UDP_PORT2    14570
 
 namespace Ui {

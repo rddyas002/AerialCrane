@@ -3,63 +3,107 @@
 
 DecodeMavPackets::DecodeMavPackets(Connection * connection)
 {
-    connect(connection, SIGNAL(MavLinkPacketReceived(const mavlink_message_t *)),
-            this, SLOT(decodePacket(const mavlink_message_t *)));
+    connect(connection, SIGNAL(MavLinkPacketReceived(const mavlink_message_t *, const qint64)),
+            this, SLOT(decodePacket(const mavlink_message_t *, const qint64)));
 }
 
-void DecodeMavPackets::decodePacket(const mavlink_message_t * msg){
+void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 timestamp){
+    qDebug() << (double)timestamp/1e3;
     switch (msg->msgid){
     case MAVLINK_MSG_ID_HEARTBEAT:
+        qDebug() << "MAVLINK_MSG_ID_HEARTBEAT";
         handle_MAVLINK_MSG_ID_HEARTBEAT(msg);
         break;
     case MAVLINK_MSG_ID_SYS_STATUS:
+        qDebug() << "MAVLINK_MSG_ID_SYS_STATUS";
         handle_MAVLINK_MSG_ID_SYS_STATUS(msg);
         break;
     case MAVLINK_MSG_ID_SYSTEM_TIME:
+        qDebug() << "MAVLINK_MSG_ID_SYSTEM_TIME";
         handle_MAVLINK_MSG_ID_SYSTEM_TIME(msg);
         break;
     case MAVLINK_MSG_ID_GPS_RAW_INT:
+        qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT";
         break;
     case MAVLINK_MSG_ID_RAW_IMU:
+        qDebug() << "MAVLINK_MSG_ID_RAW_IMU";
         break;
     case MAVLINK_MSG_ID_SCALED_PRESSURE:
+        qDebug() << "MAVLINK_MSG_ID_SCALED_PRESSURE";
         break;
     case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
+        qDebug() << "MAVLINK_MSG_ID_GLOBAL_POSITION_INT";
         break;
     case MAVLINK_MSG_ID_RC_CHANNELS_RAW:
+        qDebug() << "MAVLINK_MSG_ID_RC_CHANNELS_RAW";
         break;
     case MAVLINK_MSG_ID_SERVO_OUTPUT_RAW:
+        qDebug() << "MAVLINK_MSG_ID_SERVO_OUTPUT_RAW";
         break;
     case MAVLINK_MSG_ID_ATTITUDE:
+        qDebug() << "MAVLINK_MSG_ID_ATTITUDE";
+        handle_MAVLINK_MSG_ID_ATTITUDE(msg);
         break;
     case MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT:
+        qDebug() << "MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT";
         break;
     case MAVLINK_MSG_ID_VFR_HUD:
+        qDebug() << "MAVLINK_MSG_ID_VFR_HUD";
         break;
     case MAVLINK_MSG_ID_MISSION_CURRENT:
+        qDebug() << "MAVLINK_MSG_ID_MISSION_CURRENT";
         break;
     case MAVLINK_MSG_ID_TERRAIN_REQUEST:
+        qDebug() << "MAVLINK_MSG_ID_TERRAIN_REQUEST";
         break;
     case MAVLINK_MSG_ID_TERRAIN_REPORT:
+        qDebug() << "MAVLINK_MSG_ID_TERRAIN_REPORT";
         break;
     case MAVLINK_MSG_ID_SCALED_IMU2:
+        qDebug() << "MAVLINK_MSG_ID_SCALED_IMU2";
         break;
         // ArdupiloMegaSpecific
     case MAVLINK_MSG_ID_MEMINFO:
+        qDebug() << "MAVLINK_MSG_ID_MEMINFO";
         break;
     case MAVLINK_MSG_ID_AHRS:
+        qDebug() << "MAVLINK_MSG_ID_AHRS";
         break;
     case MAVLINK_MSG_ID_SIMSTATE:
+        qDebug() << "MAVLINK_MSG_ID_SIMSTATE";
         break;
     case MAVLINK_MSG_ID_HWSTATUS:
+        qDebug() << "MAVLINK_MSG_ID_HWSTATUS";
         break;
     case MAVLINK_MSG_ID_AHRS2:
+        qDebug() << "MAVLINK_MSG_ID_AHRS2";
         break;
     case MAVLINK_MSG_ID_EKF_STATUS_REPORT:
+        qDebug() << "MAVLINK_MSG_ID_EKF_STATUS_REPORT";
         break;
     case MAVLINK_MSG_ID_SENSOR_OFFSETS:
+        qDebug() << "MAVLINK_MSG_ID_SENSOR_OFFSETS";
         break;
     case MAVLINK_MSG_ID_VIBRATION:
+        qDebug() << "MAVLINK_MSG_ID_VIBRATION";
+        break;
+    case MAVLINK_MSG_ID_PARAM_VALUE:
+        qDebug() << "MAVLINK_MSG_ID_PARAM_VALUE";
+        break;
+    case MAVLINK_MSG_ID_RC_CHANNELS:
+        qDebug() << "MAVLINK_MSG_ID_RC_CHANNELS";
+        break;
+    case MAVLINK_MSG_ID_POWER_STATUS:
+        qDebug() << "MAVLINK_MSG_ID_POWER_STATUS";
+        break;
+    case MAVLINK_MSG_ID_BATTERY_STATUS:
+        qDebug() << "MAVLINK_MSG_ID_BATTERY_STATUS";
+        break;
+    case MAVLINK_MSG_ID_AHRS3:
+        qDebug() << "MAVLINK_MSG_ID_AHRS3";
+        break;
+    case MAVLINK_MSG_ID_RADIO_STATUS:
+        qDebug() << "MAVLINK_MSG_ID_RADIO_STATUS";
         break;
         default:
             qDebug() << "MSG ID: " << msg->msgid << "MSG LEN: " << msg->len;
@@ -72,7 +116,9 @@ void DecodeMavPackets::handle_MAVLINK_MSG_ID_HEARTBEAT(const mavlink_message_t *
     mavlink_msg_heartbeat_decode(msg, &mavlink_heartbeat);
     qDebug() << "[HEARTBEAT]AUTOPILOT: " << mavlink_heartbeat.autopilot;
     qDebug() << "[HEARTBEAT]MAVLINK VERSION: " << mavlink_heartbeat.mavlink_version;
-    qDebug() << "[HEARTBEAT]SYSTEM STATUSx: " << mavlink_heartbeat.system_status;
+    qDebug() << "[HEARTBEAT]SYSTEM STATUS: " << mavlink_heartbeat.system_status;
+    qDebug() << "[HEARTBEAT]BASE MODE: " << mavlink_heartbeat.base_mode;
+    qDebug() << "[HEARTBEAT]TYPE: " << mavlink_heartbeat.type;
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_SYS_STATUS(const mavlink_message_t * msg){
@@ -86,3 +132,16 @@ void DecodeMavPackets::handle_MAVLINK_MSG_ID_SYSTEM_TIME(const mavlink_message_t
     qDebug() << "[SYSTEM_TIME]USEC UNIX: " << mavlink_msg_system_time_get_time_unix_usec(msg);
     qDebug() << "[SYSTEM_TIME]TIME SINCE BOOT MS: " << mavlink_msg_system_time_get_time_boot_ms(msg);
 }
+
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_ATTITUDE(const mavlink_message_t * msg){
+    mavlink_attitude_t mavlink_attitude;
+    mavlink_msg_attitude_decode(msg, &mavlink_attitude);
+
+    qDebug() << "[ATTITUDE] ROLL: " << RAD2DEG(mavlink_attitude.roll);
+    qDebug() << "[ATTITUDE] ROLLSPEED: " << RAD2DEG(mavlink_attitude.rollspeed);
+    qDebug() << "[ATTITUDE] PITCH: " << RAD2DEG(mavlink_attitude.pitch);
+    qDebug() << "[ATTITUDE] PITCHSPEED: " << RAD2DEG(mavlink_attitude.pitchspeed);
+    qDebug() << "[ATTITUDE] YAW: " << RAD2DEG(mavlink_attitude.yaw);
+    qDebug() << "[ATTITUDE] YAWSPEED: " << RAD2DEG(mavlink_attitude.yawspeed);
+}
+
