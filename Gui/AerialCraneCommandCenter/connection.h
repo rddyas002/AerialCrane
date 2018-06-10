@@ -13,7 +13,7 @@ class Connection : public QObject
 {
     Q_OBJECT
 public:
-    Connection(const char * host_address, uint32_t port);
+    Connection(const QString host_address, uint32_t port);
     ~Connection();
 
 signals:

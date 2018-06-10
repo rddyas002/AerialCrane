@@ -5,4 +5,4 @@ gnome-terminal -e "/home/yashren/.dronekit/sitl/copter-3.3/apm --home=-34.224405
 # start mav proxy sessions
 sleep 5
 echo "Start MAVproxy session 1"
-gnome-terminal -e "mavproxy.py --master=tcp:0.0.0.0:5760 --out=udp:0.0.0.0:14560"
+gnome-terminal -e "mavproxy.py --master=tcp:0.0.0.0:5760 --out=udp:0.0.0.0:14550"

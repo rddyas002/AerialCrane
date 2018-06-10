@@ -1,6 +1,6 @@
 #include "connection.h"
 
-Connection::Connection(const char * host_address, uint32_t port)
+Connection::Connection(const QString host_address, uint32_t port)
 {
     timer.start();
     QHostAddress hostAddress = QHostAddress(host_address);
