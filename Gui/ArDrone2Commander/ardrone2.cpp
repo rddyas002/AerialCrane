@@ -12,36 +12,43 @@ ArDrone2::ArDrone2(const QString host_address, uint32_t port)
     connect(udp_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
+void ArDrone2::readData(){
+    while (udp_socket->hasPendingDatagrams()) {
+        QNetworkDatagram datagram = udp_socket->receiveDatagram();
+        qDebug() << datagram.data();
+    }
+}
+
 void ArDrone2::initialiseDrone(void){
     QString data;
 
     data.asprintf("AT*CONFIG=%d\"general:navdata_demo\",\"TRUE\"\r", seq++);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 
     data.asprintf("AT*CONFIG=%d,\"control:outdoor\",\"%s\"\rAT*CONFIG=%d,\"control:flight_without_shell\",\"%s\"\r", seq++, FLY_OUTDOOR, seq++, FLY_OUTDOOR);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 
     data.asprintf("AT*CONFIG=%d,\"control:control_yaw\",\"%d\"\r", seq++, YAW_RATE);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 
     data.asprintf("AT*CONFIG=%d,\"control:control_vz_max\",\"%d\"\r", seq++, THROTTLE_RATE);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 
     data.asprintf("AT*CONFIG=%d,\"control:euler_angle_max\",\"0.%d\"\r", seq++, PITCH_ROLL_RATE);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 
     data.asprintf("AT*CONFIG=%d,\"control:altitude_max\",\"%d\"\r", seq++, ALTITUDE_MAX);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 
     data.asprintf("AT*LED=%d,2,1073741824,5\r", seq++);
     sendData(data.toUtf8());
-    usleep(30000);
+    QThread::usleep(30000);
 }
 
 void ArDrone2::sendData(QByteArray ba){
@@ -90,6 +97,6 @@ void ArDrone2::flying(float roll, float pitch, float heave_rate, float yaw_rate)
 
 ArDrone2::~ArDrone2() {
     land();
-    sleep(1);
+    QThread::sleep(1);
     delete udp_socket;
 }

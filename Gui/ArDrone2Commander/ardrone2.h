@@ -6,12 +6,8 @@
 #include <QUdpSocket>
 #include <QNetworkDatagram>
 #include <QElapsedTimer>
-
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <iostream>
+#include <QDebug>
+#include <QThread>
 
 #define YAW_RATE 4
 #define THROTTLE_RATE 15000
@@ -36,6 +32,7 @@ public:
 signals:
 
 public slots:
+    void readData(void);
 
 private:
     QElapsedTimer timer;
