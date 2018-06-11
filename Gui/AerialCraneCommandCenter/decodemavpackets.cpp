@@ -110,10 +110,35 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
     case MAVLINK_MSG_ID_RADIO_STATUS:
         //qDebug() << "MAVLINK_MSG_ID_RADIO_STATUS";
         break;
+    case MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE:
+        handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(msg, timestamp);
+        //qDebug() << "MAVLINK_MSG_ID_RADIO_STATUS";
+        break;
         default:
             qDebug() << "MSG ID: " << msg->msgid << "MSG LEN: " << msg->len;
 
     }
+}
+
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(const mavlink_message_t * msg, const qint64 timestamp){
+    mavlink_msg_control_system_state_decode(msg, &mavlink_control_system_state);
+    qDebug() << timestamp << "us: [CONTROL_SYSTEM_STATE] TIMESTAMP(us): " << mavlink_control_system_state.time_usec <<
+                "x_acc: " << mavlink_control_system_state.x_acc <<
+                "y_acc: " << mavlink_control_system_state.y_acc <<
+                "z_acc: " << mavlink_control_system_state.z_acc <<
+                "x_vel: " << mavlink_control_system_state.x_vel <<
+                "y_vel: " << mavlink_control_system_state.y_vel <<
+                "z_vel: " << mavlink_control_system_state.z_vel <<
+                "x_pos: " << mavlink_control_system_state.x_pos <<
+                "y_pos: " << mavlink_control_system_state.y_pos <<
+                "z_pos: " << mavlink_control_system_state.z_pos <<
+                "roll_rate: " << mavlink_control_system_state.roll_rate <<
+                "pitch_rate: " << mavlink_control_system_state.pitch_rate <<
+                "yaw_rate: " << mavlink_control_system_state.yaw_rate <<
+                "q0: " << mavlink_control_system_state.q[0] <<
+                "q1: " << mavlink_control_system_state.q[1] <<
+                "q2: " << mavlink_control_system_state.q[2] <<
+                "q3: " << mavlink_control_system_state.q[3];
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_HEARTBEAT(const mavlink_message_t * msg, const qint64 timestamp){

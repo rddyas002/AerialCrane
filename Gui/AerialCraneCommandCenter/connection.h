@@ -14,6 +14,7 @@ class Connection : public QObject
     Q_OBJECT
 public:
     Connection(const QString host_address, uint32_t port);
+    qint64 transmit(QByteArray ba);
     ~Connection();
 
 signals:
@@ -27,6 +28,8 @@ private:
     QUdpSocket * udp_socket;
     mavlink_message_t msg;
     mavlink_status_t status;
+
+    uint32_t udp_port;
 };
 
 #endif // CONNECTION_H

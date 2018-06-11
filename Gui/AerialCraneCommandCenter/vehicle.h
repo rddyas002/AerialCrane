@@ -5,6 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QUdpSocket>
 #include <QNetworkDatagram>
+#include <QByteArray>
 
 #include "connection.h"
 #include "decodemavpackets.h"
@@ -21,6 +22,8 @@ public slots:
 signals:
 
 private:
+    void requestControlStateStream(void);
+
     Connection *mav_vehicle;
     DecodeMavPackets *decode;
 

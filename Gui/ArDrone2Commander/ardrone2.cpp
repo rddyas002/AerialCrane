@@ -10,6 +10,7 @@ ArDrone2::ArDrone2(const QString host_address, uint32_t port)
     seq = 1;
 
     connect(udp_socket, SIGNAL(readyRead()), this, SLOT(readData()));
+    initialiseDrone();
 }
 
 void ArDrone2::readData(){
