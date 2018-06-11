@@ -9,13 +9,22 @@ Vehicle::Vehicle(const QString host_address, uint32_t port)
 
 void Vehicle::requestControlStateStream(void){
     mavlink_message_t msg;
-    uint16_t len = mavlink_msg_request_data_stream_pack(255, 0, &msg, 1, 1, MAV_DATA_STREAM_EXTENDED_STATUS, 5, 1);
-    char * data = (char *)malloc(len + 1);
-    *data = 0xFE;
-    memcpy(data + 1, &msg, len);
-    qint64 sent = mav_vehicle->transmit(data, len + 1);
-    qDebug() << sent;
-    delete data;
+    uint8_t streams[10] = {MAV_DATA_STREAM_ALL,
+        MAV_DATA_STREAM_RAW_SENSORS,
+        MAV_DATA_STREAM_EXTENDED_STATUS,
+        MAV_DATA_STREAM_RC_CHANNELS,
+        MAV_DATA_STREAM_RAW_CONTROLLER,
+        MAV_DATA_STREAM_POSITION,
+        MAV_DATA_STREAM_EXTRA1,
+        MAV_DATA_STREAM_EXTRA2,
+        MAV_DATA_STREAM_EXTRA3,
+        MAV_DATA_STREAM_ENUM_END};
+    for (int i = 0; i < 10; i++){
+        uint16_t len = mavlink_msg_request_data_stream_pack(255, 0, &msg, 1, 0, streams[i], 1, 0);
+        memcpy(&transmit_buffer[0], &msg, len);
+        qint64 sent = mav_vehicle->transmit(&transmit_buffer[0], len);
+        qDebug() << sent;
+    }
 }
 
 Vehicle::~Vehicle()

@@ -27,6 +27,8 @@ private:
     Connection *mav_vehicle;
     DecodeMavPackets *decode;
 
+    char transmit_buffer[MAVLINK_MAX_PACKET_LEN];
+
     float euler[3];
     float body_rates[3];
     float quaternion[4];
