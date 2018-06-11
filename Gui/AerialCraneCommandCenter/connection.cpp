@@ -4,7 +4,7 @@ Connection::Connection(const QString host_address, uint32_t port)
 {
     timer.start();
     udp_port = port;
-    QHostAddress hostAddress = QHostAddress(host_address);
+    hostAddress = QHostAddress(host_address);
     udp_socket = new QUdpSocket(this);
     if(udp_socket->bind(hostAddress, port))
         qDebug() << "UDP port " << udp_port << " opened";
@@ -12,8 +12,8 @@ Connection::Connection(const QString host_address, uint32_t port)
     connect(udp_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
-qint64 Connection::transmit(QByteArray ba){
-    return udp_socket->writeDatagram(ba);
+qint64 Connection::transmit(const char *data, qint64 size){
+    return udp_socket->writeDatagram(data, size, hostAddress, udp_port);
 }
 
 void Connection::readData()
