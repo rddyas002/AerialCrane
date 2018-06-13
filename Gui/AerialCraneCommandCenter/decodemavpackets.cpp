@@ -1,6 +1,8 @@
 #include "decodemavpackets.h"
 #include <QDebug>
 
+#define QDEBUG_OUT
+
 DecodeMavPackets::DecodeMavPackets(Connection * connection)
 {
     connect(connection, SIGNAL(MavLinkPacketReceived(const mavlink_message_t *, const qint64)),
@@ -12,8 +14,6 @@ void DecodeMavPackets::emitStringSignal(const QString message, const qint64 time
 }
 
 void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 timestamp){
-//    qDebug() << "MAV" << msg->sysid;
-//    qDebug() << (double)timestamp/1e3;
     switch (msg->msgid){
     case MAVLINK_MSG_ID_HEARTBEAT:
         //qDebug() << "MAVLINK_MSG_ID_HEARTBEAT";
@@ -21,11 +21,11 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
         break;
     case MAVLINK_MSG_ID_SYS_STATUS:
         //qDebug() << "MAVLINK_MSG_ID_SYS_STATUS";
-        handle_MAVLINK_MSG_ID_SYS_STATUS(msg, timestamp);
+        //handle_MAVLINK_MSG_ID_SYS_STATUS(msg, timestamp);
         break;
     case MAVLINK_MSG_ID_SYSTEM_TIME:
         //qDebug() << "MAVLINK_MSG_ID_SYSTEM_TIME";
-        handle_MAVLINK_MSG_ID_SYSTEM_TIME(msg, timestamp);
+        //handle_MAVLINK_MSG_ID_SYSTEM_TIME(msg, timestamp);
         break;
     case MAVLINK_MSG_ID_GPS_RAW_INT:
         //qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT";
@@ -47,7 +47,7 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
         break;
     case MAVLINK_MSG_ID_ATTITUDE:
         //qDebug() << "MAVLINK_MSG_ID_ATTITUDE";
-        handle_MAVLINK_MSG_ID_ATTITUDE(msg, timestamp);
+        //handle_MAVLINK_MSG_ID_ATTITUDE(msg, timestamp);
         break;
     case MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT:
         //qDebug() << "MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT";
@@ -122,6 +122,7 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(const mavlink_message_t * msg, const qint64 timestamp){
     mavlink_msg_control_system_state_decode(msg, &mavlink_control_system_state);
+#ifdef QDEBUG_OUT
     qDebug() << timestamp << "us: [CONTROL_SYSTEM_STATE] TIMESTAMP(us): " << mavlink_control_system_state.time_usec <<
                 "x_acc: " << mavlink_control_system_state.x_acc <<
                 "y_acc: " << mavlink_control_system_state.y_acc <<
@@ -139,38 +140,46 @@ void DecodeMavPackets::handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(const mavlink_
                 "q1: " << mavlink_control_system_state.q[1] <<
                 "q2: " << mavlink_control_system_state.q[2] <<
                 "q3: " << mavlink_control_system_state.q[3];
+#endif
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_HEARTBEAT(const mavlink_message_t * msg, const qint64 timestamp){
     mavlink_heartbeat_t mavlink_heartbeat;
     mavlink_msg_heartbeat_decode(msg, &mavlink_heartbeat);
+#ifdef QDEBUG_OUT
     qDebug() << timestamp << "us: [HEARTBEAT] AUTOPILOT: " << mavlink_heartbeat.autopilot <<
     " MAVLINK VERSION: " << mavlink_heartbeat.mavlink_version <<
     " SYSTEM STATUS: " << mavlink_heartbeat.system_status <<
     " BASE MODE: " << mavlink_heartbeat.base_mode <<
     " TYPE: " << mavlink_heartbeat.type;
+#endif
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_SYS_STATUS(const mavlink_message_t * msg, const qint64 timestamp){
     mavlink_sys_status_t mavlink_sys_status;
     mavlink_msg_sys_status_decode(msg, &mavlink_sys_status);
+#ifdef QDEBUG_OUT
     qDebug() << timestamp << "us: [STATUS] BATTERY VOLTAGE: " << mavlink_sys_status.voltage_battery <<
     " COMM ERROR: " << mavlink_sys_status.errors_comm;
+#endif
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_SYSTEM_TIME(const mavlink_message_t * msg, const qint64 timestamp){
+#ifdef QDEBUG_OUT
     qDebug() << timestamp << "us: [SYSTEM_TIME] USEC UNIX: " << mavlink_msg_system_time_get_time_unix_usec(msg) <<
     " TIME SINCE BOOT MS: " << mavlink_msg_system_time_get_time_boot_ms(msg);
+#endif
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_ATTITUDE(const mavlink_message_t * msg, const qint64 timestamp){
     mavlink_msg_attitude_decode(msg, &mavlink_attitude_pvt);
-
+#ifdef QDEBUG_OUT
     qDebug() << timestamp << "us: [ATTITUDE] ROLL: " << RAD2DEG(mavlink_attitude_pvt.roll) <<
     " ROLLSPEED: " << RAD2DEG(mavlink_attitude_pvt.rollspeed) <<
     " PITCH: " << RAD2DEG(mavlink_attitude_pvt.pitch) <<
     " PITCHSPEED: " << RAD2DEG(mavlink_attitude_pvt.pitchspeed) <<
     " YAW: " << RAD2DEG(mavlink_attitude_pvt.yaw) <<
     " YAWSPEED: " << RAD2DEG(mavlink_attitude_pvt.yawspeed);
+#endif
 }
 

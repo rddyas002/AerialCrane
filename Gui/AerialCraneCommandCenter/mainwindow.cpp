@@ -19,8 +19,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->connectH2,SIGNAL(clicked()), this, SLOT(connect_helicopter2()));
     connect(ui->disconnectH1,SIGNAL(clicked()), this, SLOT(disconnect_helicopter1()));
     connect(ui->disconnectH2,SIGNAL(clicked()), this, SLOT(disconnect_helicopter2()));
+    ui->disconnectH1->setEnabled(false);
 
-     ui->disconnectH1->setEnabled(false);
+    connect(ui->btn_guided,SIGNAL(clicked()), this, SLOT(switchGuidedMode1()));
+}
+
+void MainWindow::switchGuidedMode1(){
+    vehicles[0]->mavTakeOff();
 }
 
 void MainWindow::connect_helicopter1(){

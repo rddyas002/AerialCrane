@@ -13,7 +13,7 @@ class Connection : public QObject
 {
     Q_OBJECT
 public:
-    Connection(const QString host_address, uint32_t port);
+    Connection(uint32_t port);
     qint64 transmit(const char *data, qint64 size);
     ~Connection();
 
@@ -30,6 +30,8 @@ private:
     mavlink_status_t status;
 
     QHostAddress hostAddress;
+    QHostAddress senderAddress;
+    quint16 senderPort;
     uint32_t udp_port;
 };
 

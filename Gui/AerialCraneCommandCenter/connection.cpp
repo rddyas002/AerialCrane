@@ -1,19 +1,31 @@
 #include "connection.h"
+#include <QAbstractSocket>
+#include <QNetworkProxy>
 
-Connection::Connection(const QString host_address, uint32_t port)
+Connection::Connection(uint32_t port)
 {
     timer.start();
     udp_port = port;
-    hostAddress = QHostAddress(host_address);
+    hostAddress = QHostAddress::AnyIPv4;
     udp_socket = new QUdpSocket(this);
-    if(udp_socket->bind(hostAddress, port))
+    udp_socket->setProxy(QNetworkProxy::NoProxy);
+    if(udp_socket->bind(hostAddress, udp_port))
         qDebug() << "UDP port " << udp_port << " opened";
-    //QAbstractSocket::connectToHost(ip_address, port);
+    else
+        qDebug() << "Failed to bind";
+
+    udp_socket->setSocketOption(QAbstractSocket::SendBufferSizeSocketOption,    256 * 1024);
+    udp_socket->setSocketOption(QAbstractSocket::ReceiveBufferSizeSocketOption, 512 * 1024);
+
     connect(udp_socket, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
 qint64 Connection::transmit(const char *data, qint64 size){
-    return udp_socket->writeDatagram(data, size, hostAddress, udp_port);
+    if (!senderAddress.isNull()){
+        qint64 len = udp_socket->writeDatagram(data, size, senderAddress, senderPort);
+        qDebug() << "len: " << len  << senderAddress << "Port: " << senderPort;
+        return len;
+    }
 }
 
 void Connection::readData()
@@ -22,6 +34,8 @@ void Connection::readData()
         QNetworkDatagram datagram = udp_socket->receiveDatagram();
         for (int i = 0; i < datagram.data().length(); i++){
             if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
+                senderAddress = datagram.senderAddress();
+                senderPort = datagram.senderPort();
                 emit Connection::MavLinkPacketReceived(&msg, timer.elapsed());
           }
         }

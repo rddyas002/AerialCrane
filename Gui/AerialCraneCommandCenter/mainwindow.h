@@ -32,6 +32,8 @@ public slots:
     void disconnect_helicopter1(void);
     void disconnect_helicopter2(void);
 
+    void switchGuidedMode1(void);
+
 private:
     Ui::MainWindow *ui;
     Vehicle *vehicles[MAX_MAV_VEHICLES];
