@@ -33,6 +33,7 @@ public slots:
     void disconnect_helicopter2(void);
 
     void switchGuidedMode1(void);
+    void takeoff1(void);
 
 private:
     Ui::MainWindow *ui;

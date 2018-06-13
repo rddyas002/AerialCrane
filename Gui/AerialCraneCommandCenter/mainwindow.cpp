@@ -22,9 +22,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->disconnectH1->setEnabled(false);
 
     connect(ui->btn_guided,SIGNAL(clicked()), this, SLOT(switchGuidedMode1()));
+    connect(ui->btn_takeoff,SIGNAL(clicked()), this, SLOT(takeoff1()));
 }
 
 void MainWindow::switchGuidedMode1(){
+    vehicles[0]->setMode(COPTER_MODE_GUIDED);
+}
+
+void MainWindow::takeoff1(){
     vehicles[0]->mavTakeOff();
 }
 

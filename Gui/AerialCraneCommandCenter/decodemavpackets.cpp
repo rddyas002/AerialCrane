@@ -14,6 +14,7 @@ void DecodeMavPackets::emitStringSignal(const QString message, const qint64 time
 }
 
 void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 timestamp){
+   // qDebug() << "SYSID: " << msg->sysid;
     switch (msg->msgid){
     case MAVLINK_MSG_ID_HEARTBEAT:
         //qDebug() << "MAVLINK_MSG_ID_HEARTBEAT";

@@ -28,6 +28,7 @@ private:
     QUdpSocket * udp_socket;
     mavlink_message_t msg;
     mavlink_status_t status;
+    bool first_connect;
 
     QHostAddress hostAddress;
     QHostAddress senderAddress;
