@@ -21,6 +21,7 @@ void Vehicle::oneSecondTimer(void){
 
 void Vehicle::mavSendHeartbeat(void){
     mavlink_message_t msg;
+    msg.magic = MAVLINK_STX_MAVLINK1;
     uint8_t buf[MAVLINK_MAX_PACKET_LEN];
     uint16_t len = mavlink_msg_heartbeat_pack(this_sysid, this_compid, &msg, MAV_TYPE_GCS, MAV_AUTOPILOT_INVALID, MAV_MODE_PREFLIGHT, COPTER_MODE_STABILIZE, MAV_STATE_UNINIT);
     len = mavlink_msg_to_send_buffer(&buf[0], &msg);
@@ -29,6 +30,7 @@ void Vehicle::mavSendHeartbeat(void){
 
 void Vehicle::mavTakeOff(void){
     mavlink_message_t msg;
+    msg.magic = 0xfe;
     uint8_t buf[MAVLINK_MAX_PACKET_LEN];
     uint16_t len = mavlink_msg_command_long_pack(this_sysid, this_compid, &msg, target_sysid, 0, MAV_CMD_NAV_TAKEOFF, 0, 0, 0, 0, 0, 0, 0, 20);
     len = mavlink_msg_to_send_buffer(&buf[0], &msg);

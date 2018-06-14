@@ -38,7 +38,7 @@ void Connection::readData()
             senderPort = datagram.senderPort();
             first_connect = true;
         }
-
+        qDebug() << datagram.data().toHex();
         for (int i = 0; i < datagram.data().length(); i++){
             if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
                 emit Connection::MavLinkPacketReceived(&msg, timer.elapsed());
