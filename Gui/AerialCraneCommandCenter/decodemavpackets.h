@@ -17,6 +17,7 @@ public:
     void handle_MAVLINK_MSG_ID_SYSTEM_TIME(const mavlink_message_t * msg, const qint64 timestamp);
     void handle_MAVLINK_MSG_ID_ATTITUDE(const mavlink_message_t * msg, const qint64 timestamp);
     void handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(const mavlink_message_t * msg, const qint64 timestamp);
+    void handle_MAVLINK_MSG_ID_COMMAND_ACK(const mavlink_message_t * msg, const qint64 timestamp);
 signals:
     void StringToUi(const QString string, const qint64 timestamp);
 public slots:
@@ -26,6 +27,7 @@ private:
 
     mavlink_attitude_t mavlink_attitude_pvt;
     mavlink_control_system_state_t mavlink_control_system_state;
+    mavlink_command_ack_t mavlink_command_ack;
 };
 
 #endif // DECODEMAVPACKETS_H

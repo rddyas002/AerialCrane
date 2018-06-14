@@ -34,6 +34,8 @@ public slots:
 
     void switchGuidedMode1(void);
     void takeoff1(void);
+    void setArm1(void);
+    void setStream1(void);
 
 private:
     Ui::MainWindow *ui;

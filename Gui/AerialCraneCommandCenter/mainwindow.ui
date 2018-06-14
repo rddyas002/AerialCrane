@@ -116,9 +116,9 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
+       <y>100</y>
        <width>111</width>
-       <height>141</height>
+       <height>201</height>
       </rect>
      </property>
      <property name="title">
@@ -128,7 +128,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>60</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -141,7 +141,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
+        <y>90</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>120</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -163,6 +163,32 @@ p, li { white-space: pre-wrap; }
        <string>Takeoff</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="btn_arm">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>89</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Arm</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="btn_stream">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>110</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stream Rq</string>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">

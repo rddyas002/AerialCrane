@@ -23,14 +23,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->btn_guided,SIGNAL(clicked()), this, SLOT(switchGuidedMode1()));
     connect(ui->btn_takeoff,SIGNAL(clicked()), this, SLOT(takeoff1()));
+    connect(ui->btn_arm,SIGNAL(clicked()), this, SLOT(setArm1()));
+    connect(ui->btn_stream,SIGNAL(clicked()), this, SLOT(setStream1()));
 }
 
 void MainWindow::switchGuidedMode1(){
     vehicles[0]->setMode(COPTER_MODE_GUIDED);
 }
 
+void MainWindow::setArm1(void){
+    vehicles[0]->mavSetMode(MAV_MODE_FLAG_SAFETY_ARMED);
+}
+
 void MainWindow::takeoff1(){
     vehicles[0]->mavTakeOff();
+}
+
+void MainWindow::setStream1(){
+    vehicles[0]->defaultDataStreamRate();
 }
 
 void MainWindow::connect_helicopter1(){
@@ -49,7 +59,6 @@ void MainWindow::disconnect_helicopter1(){
         ui->connectH1->setEnabled(true);
         ui->disconnectH1->setEnabled(false);
     }
-
 }
 
 void MainWindow::disconnect_helicopter2(){

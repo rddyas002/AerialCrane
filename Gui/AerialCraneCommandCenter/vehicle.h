@@ -19,14 +19,16 @@ public:
     ~Vehicle();
 
     void setMode(uint32_t mode);
+    void mavSetMode(uint8_t mode);
     void mavTakeOff(void);
+    void defaultDataStreamRate(void);
+    void setStreamRate(uint8_t stream_id, uint16_t frequency, uint8_t enable);
 public slots:
     void oneSecondTimer(void);
 
 signals:
 
 private:
-    void requestControlStateStream(void);
     void mavSendHeartbeat(void);
 
     Connection *mav_vehicle;

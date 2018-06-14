@@ -2,8 +2,7 @@
 #include <QAbstractSocket>
 #include <QNetworkProxy>
 
-Connection::Connection(uint32_t port)
-{
+Connection::Connection(uint32_t port){
     first_connect = false;
     timer.start();
     udp_port = port;
@@ -24,7 +23,6 @@ Connection::Connection(uint32_t port)
 qint64 Connection::transmit(const char *data, qint64 size){
     if (first_connect){
         qint64 len = udp_socket->writeDatagram(data, size, senderAddress, senderPort);
-        //qDebug() << "len: " << len  << senderAddress << "Port: " << senderPort;
         return len;
     }
 }
@@ -36,9 +34,9 @@ void Connection::readData()
         if (!first_connect){
             senderAddress = datagram.senderAddress();
             senderPort = datagram.senderPort();
+            qDebug() << "Received packet from " << senderAddress << ". Sender port: " << senderPort;
             first_connect = true;
         }
-        qDebug() << datagram.data().toHex();
         for (int i = 0; i < datagram.data().length(); i++){
             if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
                 emit Connection::MavLinkPacketReceived(&msg, timer.elapsed());
