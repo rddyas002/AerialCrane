@@ -7,7 +7,7 @@
 #include <QNetworkDatagram>
 #include <QElapsedTimer>
 
-#include "lib/mavlink/include/mavlink/ardupilotmega/mavlink.h"
+#include "lib/c_library_v1/ardupilotmega/mavlink.h"
 
 class Connection : public QObject
 {

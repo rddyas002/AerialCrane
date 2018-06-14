@@ -6,7 +6,7 @@
 #include <QUdpSocket>
 #include <QNetworkDatagram>
 
-#include "lib/mavlink/include/mavlink/ardupilotmega/mavlink.h"
+#include "lib/c_library_v1/ardupilotmega/mavlink.h"
 
 #include "connection.h"
 #include "decodemavpackets.h"
