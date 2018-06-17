@@ -81,7 +81,7 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
         qDebug() << "MAVLINK_MSG_ID_HWSTATUS";
         break;
     case MAVLINK_MSG_ID_AHRS2:
-        qDebug() << "MAVLINK_MSG_ID_AHRS2";
+        handle_MAVLINK_MSG_ID_AHRS2(msg, timestamp);
         break;
     case MAVLINK_MSG_ID_EKF_STATUS_REPORT:
         qDebug() << "MAVLINK_MSG_ID_EKF_STATUS_REPORT";
@@ -114,6 +114,9 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
         handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(msg, timestamp);
         qDebug() << "MAVLINK_MSG_ID_RADIO_STATUS";
         break;
+    case MAVLINK_MSG_ID_STATUSTEXT:
+        handle_MAVLINK_MSG_ID_STATUSTEXT(msg, timestamp);
+        break;
     case MAVLINK_MSG_ID_COMMAND_ACK:
         handle_MAVLINK_MSG_ID_COMMAND_ACK(msg, timestamp);
         break;
@@ -121,6 +124,12 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
             qDebug() << "MSG ID: " << msg->msgid << "MSG LEN: " << msg->len;
 
     }
+}
+
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_STATUSTEXT(const mavlink_message_t * msg, const qint64 timestamp){
+    mavlink_statustext_t mavlink_statustext;
+    mavlink_msg_statustext_decode(msg, &mavlink_statustext);
+    qDebug() << "STATUS_EXT: Serverity " << mavlink_statustext.severity << " " << mavlink_statustext.text;
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_COMMAND_ACK(const mavlink_message_t * msg, const qint64 timestamp){
@@ -159,6 +168,7 @@ void DecodeMavPackets::handle_MAVLINK_MSG_ID_HEARTBEAT(const mavlink_message_t *
     " MAVLINK VERSION: " << mavlink_heartbeat.mavlink_version <<
     " SYSTEM STATUS: " << mavlink_heartbeat.system_status <<
     " BASE MODE: " << mavlink_heartbeat.base_mode <<
+    " CUSTOM MODE: " << mavlink_heartbeat.custom_mode <<
     " TYPE: " << mavlink_heartbeat.type;
 #endif
 }
@@ -189,5 +199,19 @@ void DecodeMavPackets::handle_MAVLINK_MSG_ID_ATTITUDE(const mavlink_message_t * 
     " YAW: " << RAD2DEG(mavlink_attitude_pvt.yaw) <<
     " YAWSPEED: " << RAD2DEG(mavlink_attitude_pvt.yawspeed);
 #endif
+    emit attitude_update_received(&mavlink_attitude_pvt);
+}
+
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_AHRS2(const mavlink_message_t * msg, const qint64 timestamp){
+    mavlink_msg_ahrs2_decode(msg, &mavlink_ahrs2);
+#ifdef QDEBUG_OUT
+    qDebug() << timestamp << "us: [AHRS2] ROLL: " << RAD2DEG(mavlink_ahrs2.roll) <<
+    " PITCH: " << RAD2DEG(mavlink_ahrs2.pitch) <<
+    " YAW: " << RAD2DEG(mavlink_ahrs2.yaw) <<
+    " ALTITUDE: " << mavlink_ahrs2.altitude <<
+    " LATITUDE: " << mavlink_ahrs2.altitude <<
+    " LONGITUDE: " << mavlink_ahrs2.altitude;
+#endif
+    emit ahrs_update_received(&mavlink_ahrs2);
 }
 

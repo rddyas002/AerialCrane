@@ -36,7 +36,10 @@ public slots:
     void takeoff1(void);
     void setArm1(void);
     void setStream1(void);
+    void land1();
 
+    void update_attitude1(mavlink_attitude_t * mav_att);
+    void update_ahrs1(mavlink_ahrs2_t * mav_ahrs2);
 private:
     Ui::MainWindow *ui;
     Vehicle *vehicles[MAX_MAV_VEHICLES];

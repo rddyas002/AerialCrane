@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>711</width>
-    <height>552</height>
+    <height>692</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>341</width>
-      <height>311</height>
+      <height>641</height>
      </rect>
     </property>
     <property name="title">
@@ -117,7 +117,7 @@ p, li { white-space: pre-wrap; }
       <rect>
        <x>10</x>
        <y>100</y>
-       <width>111</width>
+       <width>171</width>
        <height>201</height>
       </rect>
      </property>
@@ -176,6 +176,49 @@ p, li { white-space: pre-wrap; }
        <string>Arm</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="btn_land">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>89</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Land</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="txtHeight">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>120</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>130</y>
+        <width>21</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>m</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="btn_stream">
      <property name="geometry">
@@ -189,6 +232,121 @@ p, li { white-space: pre-wrap; }
      <property name="text">
       <string>Stream Rq</string>
      </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>321</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Telemetry</string>
+     </property>
+     <widget class="QWidget" name="formLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>30</y>
+        <width>160</width>
+        <height>275</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="rollLabel">
+         <property name="text">
+          <string>Roll</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="rollLineEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="pitchLabel">
+         <property name="text">
+          <string>Pitch</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="pitchLineEdit"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="yawLabel">
+         <property name="text">
+          <string>Yaw</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="yawLineEdit"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="rollRateLabel">
+         <property name="text">
+          <string>Roll Rate</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="rollRateLineEdit"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="pitchRateLabel">
+         <property name="text">
+          <string>Pitch Rate</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="pitchRateLineEdit"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="yawRateLabel">
+         <property name="text">
+          <string>Yaw Rate</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="yawRateLineEdit"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="altitudeLabel">
+         <property name="text">
+          <string>Altitude</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="altitudeLineEdit"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="latitudeLabel">
+         <property name="text">
+          <string>Latitude</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="latitudeLineEdit"/>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="longitudeLabel">
+         <property name="text">
+          <string>Longitude</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="longitudeLineEdit"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">

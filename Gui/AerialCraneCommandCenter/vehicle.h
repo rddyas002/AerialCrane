@@ -19,10 +19,13 @@ public:
     ~Vehicle();
 
     void setMode(uint32_t mode);
-    void mavSetMode(uint8_t mode);
-    void mavTakeOff(void);
+    void mavCommandLong(uint16_t cmd, float param1, float param2, float param3, float param4, float param5, float param6, float param7);
+    void mavTakeOff(float height);
+    void mavLand(void);
     void defaultDataStreamRate(void);
     void setStreamRate(uint8_t stream_id, uint16_t frequency, uint8_t enable);
+    void setIntervalRate(uint16_t message_id, int32_t interval_us);
+    DecodeMavPackets * getDecoder(void);
 public slots:
     void oneSecondTimer(void);
 
