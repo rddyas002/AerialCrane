@@ -2,8 +2,9 @@
 #include <QAbstractSocket>
 #include <QNetworkProxy>
 
-Connection::Connection(uint32_t port){
+Connection::Connection(uint32_t port, uint8_t channel){
     first_connect = false;
+    mav_channel = channel;
     timer.start();
     udp_port = port;
     hostAddress = QHostAddress::AnyIPv4;
@@ -38,7 +39,7 @@ void Connection::readData()
             first_connect = true;
         }
         for (int i = 0; i < datagram.data().length(); i++){
-            if (mavlink_parse_char(MAVLINK_COMM_0, datagram.data()[i], &msg, &status)){
+            if (mavlink_parse_char(mav_channel, datagram.data()[i], &msg, &status)){
                 emit Connection::MavLinkPacketReceived(&msg, timer.elapsed());
           }
         }

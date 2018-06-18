@@ -1,7 +1,7 @@
 #include "decodemavpackets.h"
 #include <QDebug>
 
-#define QDEBUG_OUT
+//#define QDEBUG_OUT
 
 DecodeMavPackets::DecodeMavPackets(Connection * connection){
     connect(connection, SIGNAL(MavLinkPacketReceived(const mavlink_message_t *, const qint64)),
@@ -29,6 +29,7 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
         break;
     case MAVLINK_MSG_ID_GPS_RAW_INT:
         qDebug() << "MAVLINK_MSG_ID_GPS_RAW_INT";
+        handle_MAVLINK_MSG_ID_GPS_RAW_INT(msg, timestamp);
         break;
     case MAVLINK_MSG_ID_RAW_IMU:
         qDebug() << "MAVLINK_MSG_ID_RAW_IMU";
@@ -37,7 +38,8 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
         qDebug() << "MAVLINK_MSG_ID_SCALED_PRESSURE";
         break;
     case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
-        qDebug() << "MAVLINK_MSG_ID_GLOBAL_POSITION_INT";
+        handle_MAVLINK_MSG_ID_GLOBAL_POSITION_INT(msg, timestamp);
+        //qDebug() << "MAVLINK_MSG_ID_GLOBAL_POSITION_INT";
         break;
     case MAVLINK_MSG_ID_RC_CHANNELS_RAW:
         qDebug() << "MAVLINK_MSG_ID_RC_CHANNELS_RAW";
@@ -120,21 +122,54 @@ void DecodeMavPackets::decodePacket(const mavlink_message_t * msg, const qint64 
     case MAVLINK_MSG_ID_COMMAND_ACK:
         handle_MAVLINK_MSG_ID_COMMAND_ACK(msg, timestamp);
         break;
+    case MAVLINK_MSG_ID_LOCAL_POSITION_NED:
+        handle_MAVLINK_MSG_ID_LOCAL_POSITION_NED(msg, timestamp);
+        break;
         default:
             qDebug() << "MSG ID: " << msg->msgid << "MSG LEN: " << msg->len;
 
     }
 }
 
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_LOCAL_POSITION_NED(const mavlink_message_t * msg, const qint64 timestamp){
+    mavlink_local_position_ned_t mavlink_local_position_ned;
+    mavlink_msg_local_position_ned_decode(msg, &mavlink_local_position_ned);
+    emit local_position_update_received(&mavlink_local_position_ned);
+}
+
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_GPS_RAW_INT(const mavlink_message_t * msg, const qint64 timestamp){
+    mavlink_gps_raw_int_t mavlink_gps_raw_int;
+    mavlink_msg_gps_raw_int_decode(msg, &mavlink_gps_raw_int);
+    emit gps_raw_update_received(&mavlink_gps_raw_int);
+}
+
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_STATUSTEXT(const mavlink_message_t * msg, const qint64 timestamp){
     mavlink_statustext_t mavlink_statustext;
     mavlink_msg_statustext_decode(msg, &mavlink_statustext);
     qDebug() << "STATUS_EXT: Serverity " << mavlink_statustext.severity << " " << mavlink_statustext.text;
+    emit statusext_update_received(&mavlink_statustext);
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_COMMAND_ACK(const mavlink_message_t * msg, const qint64 timestamp){
     mavlink_msg_command_ack_decode(msg, &mavlink_command_ack);
     qDebug() << "Command ID: " << mavlink_command_ack.command << " Result: " << mavlink_command_ack.result;
+}
+
+void DecodeMavPackets::handle_MAVLINK_MSG_ID_GLOBAL_POSITION_INT(const mavlink_message_t * msg, const qint64 timestamp){
+    mavlink_global_position_int_t mavlink_global_position_int;
+    mavlink_msg_global_position_int_decode(msg, &mavlink_global_position_int);
+#ifdef QDEBUG_OUT
+    qDebug() << timestamp << "us: [GLOBAL_POSITION_INT] TIMEBOOT(ms): " << mavlink_global_position_int.time_boot_ms <<
+                "alt: " << mavlink_global_position_int.alt <<
+                "lat: " << mavlink_global_position_int.lat <<
+                "lon: " << mavlink_global_position_int.lon <<
+                "hdg: " << mavlink_global_position_int.hdg <<
+                "relative_alt: " << mavlink_global_position_int.relative_alt <<
+                "vx: " << mavlink_global_position_int.vx <<
+                "vy: " << mavlink_global_position_int.vy <<
+                "vz: " << mavlink_global_position_int.vz;
+#endif
+    emit gps_update_received(&mavlink_global_position_int);
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE(const mavlink_message_t * msg, const qint64 timestamp){
@@ -171,6 +206,7 @@ void DecodeMavPackets::handle_MAVLINK_MSG_ID_HEARTBEAT(const mavlink_message_t *
     " CUSTOM MODE: " << mavlink_heartbeat.custom_mode <<
     " TYPE: " << mavlink_heartbeat.type;
 #endif
+    emit heartbeat_update_received(&mavlink_heartbeat);
 }
 
 void DecodeMavPackets::handle_MAVLINK_MSG_ID_SYS_STATUS(const mavlink_message_t * msg, const qint64 timestamp){

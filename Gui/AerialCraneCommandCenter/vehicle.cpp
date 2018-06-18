@@ -2,10 +2,10 @@
 
 #define STREAM_ALL_ON               0
 #define STREAM_RAW_SENSORS_ON       0
-#define STREAM_EXTENDED_STATUS_ON   0
+#define STREAM_EXTENDED_STATUS_ON   1
 #define STREAM_RC_CHANNELS_ON       0
 #define STREAM_RAW_CONTROLLER_ON    0
-#define STREAM_POSITION_ON          0
+#define STREAM_POSITION_ON          1
 #define STREAM_EXTRA1_ON            1
 #define STREAM_EXTRA2_ON            0
 #define STREAM_EXTRA3_ON            0
@@ -15,19 +15,19 @@
 #define STREAM_EXTENDED_STATUS_FREQ 1
 #define STREAM_RC_CHANNELS_FREQ     1
 #define STREAM_RAW_CONTROLLER_FREQ  1
-#define STREAM_POSITION_FREQ        1
-#define STREAM_EXTRA1_FREQ          20
+#define STREAM_POSITION_FREQ        10
+#define STREAM_EXTRA1_FREQ          10
 #define STREAM_EXTRA2_FREQ          1
 #define STREAM_EXTRA3_FREQ          1
 
-Vehicle::Vehicle(const QString host_address, uint32_t port)
+Vehicle::Vehicle(const QString host_address, uint32_t port, uint8_t channel)
 {
     this_sysid = 250;
     this_compid = 0;
     target_sysid = 1;
     target_compid = 1;
 
-    mav_vehicle = new Connection(port);
+    mav_vehicle = new Connection(port, channel);
     decode = new DecodeMavPackets(mav_vehicle);
     timer_1second = new QTimer(this);
     connect(timer_1second, SIGNAL(timeout()), this, SLOT(oneSecondTimer()));

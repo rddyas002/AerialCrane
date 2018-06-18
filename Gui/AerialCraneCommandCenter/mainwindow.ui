@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
-    <height>692</height>
+    <width>829</width>
+    <height>867</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>341</width>
-      <height>641</height>
+      <width>421</width>
+      <height>791</height>
      </rect>
     </property>
     <property name="title">
@@ -44,7 +44,7 @@
       <rect>
        <x>240</x>
        <y>30</y>
-       <width>89</width>
+       <width>90</width>
        <height>31</height>
       </rect>
      </property>
@@ -57,7 +57,7 @@
       <rect>
        <x>240</x>
        <y>60</y>
-       <width>89</width>
+       <width>90</width>
        <height>31</height>
       </rect>
      </property>
@@ -116,9 +116,9 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>100</y>
-       <width>171</width>
-       <height>201</height>
+       <y>210</y>
+       <width>401</width>
+       <height>101</height>
       </rect>
      </property>
      <property name="title">
@@ -127,8 +127,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="btn_stabilize">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>60</y>
+        <x>100</x>
+        <y>30</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -140,8 +140,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="btn_guided">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>90</y>
+        <x>190</x>
+        <y>30</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>120</y>
+        <y>60</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -179,8 +179,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="btn_land">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>150</y>
+        <x>280</x>
+        <y>30</y>
         <width>89</width>
         <height>31</height>
        </rect>
@@ -193,7 +193,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>120</y>
+        <y>60</y>
         <width>31</width>
         <height>31</height>
        </rect>
@@ -209,8 +209,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>130</y>
+        <x>130</x>
+        <y>70</y>
         <width>21</width>
         <height>17</height>
        </rect>
@@ -220,26 +220,13 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QPushButton" name="btn_stream">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>110</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Stream Rq</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>310</y>
-       <width>321</width>
-       <height>311</height>
+       <width>401</width>
+       <height>471</height>
       </rect>
      </property>
      <property name="title">
@@ -248,10 +235,10 @@ p, li { white-space: pre-wrap; }
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>9</x>
         <y>30</y>
-        <width>160</width>
-        <height>275</height>
+        <width>181</width>
+        <height>431</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -316,43 +303,224 @@ p, li { white-space: pre-wrap; }
         <widget class="QLineEdit" name="yawRateLineEdit"/>
        </item>
        <item row="6" column="0">
+        <widget class="QLabel" name="xLabel">
+         <property name="text">
+          <string>x</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="xLineEdit"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="yLabel">
+         <property name="text">
+          <string>y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="yLineEdit"/>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="zLabel">
+         <property name="text">
+          <string>z</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="zLineEdit"/>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="vxLabel_2">
+         <property name="text">
+          <string>vx</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="vxLineEdit_2"/>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="vyLabel_2">
+         <property name="text">
+          <string>vy</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QLineEdit" name="vyLineEdit_2"/>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="vzLabel_2">
+         <property name="text">
+          <string>vz</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLineEdit" name="vzLineEdit_2"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="formLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>30</y>
+        <width>181</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="0">
         <widget class="QLabel" name="altitudeLabel">
          <property name="text">
           <string>Altitude</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="0" column="1">
         <widget class="QLineEdit" name="altitudeLineEdit"/>
        </item>
-       <item row="7" column="0">
+       <item row="1" column="0">
         <widget class="QLabel" name="latitudeLabel">
          <property name="text">
           <string>Latitude</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="1" column="1">
         <widget class="QLineEdit" name="latitudeLineEdit"/>
        </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="satellitesLabel">
+         <property name="text">
+          <string>Satellites</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="satellitesLineEdit"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="hDOPLabel">
+         <property name="text">
+          <string>HDOP</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="hDOPLineEdit"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="fixedLabel">
+         <property name="text">
+          <string>Fixed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="fixedLineEdit"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="headingLabel">
+         <property name="text">
+          <string>Heading</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="headingLineEdit"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="rAltitudeLabel">
+         <property name="text">
+          <string>RAltitude</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="rAltitudeLineEdit"/>
+       </item>
        <item row="8" column="0">
+        <widget class="QLabel" name="vxLabel">
+         <property name="text">
+          <string>vx</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="vxLineEdit"/>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="vyLabel">
+         <property name="text">
+          <string>vy</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="vyLineEdit"/>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="vzLabel">
+         <property name="text">
+          <string>vz</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QLineEdit" name="vzLineEdit"/>
+       </item>
+       <item row="2" column="0">
         <widget class="QLabel" name="longitudeLabel">
          <property name="text">
           <string>Longitude</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="2" column="1">
         <widget class="QLineEdit" name="longitudeLineEdit"/>
        </item>
       </layout>
      </widget>
     </widget>
+    <widget class="QPushButton" name="btn_stream">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>90</y>
+       <width>90</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stream</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblHeartbeat">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>81</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>HEATBEAT</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>480</x>
       <y>10</y>
       <width>341</width>
       <height>311</height>
@@ -454,7 +622,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>711</width>
+     <width>829</width>
      <height>22</height>
     </rect>
    </property>

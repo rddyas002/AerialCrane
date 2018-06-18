@@ -15,7 +15,7 @@ class Vehicle : public QObject{
    Q_OBJECT
 
 public:
-    Vehicle(const QString host_address, uint32_t port);
+    Vehicle(const QString host_address, uint32_t port, uint8_t channel);
     ~Vehicle();
 
     void setMode(uint32_t mode);
