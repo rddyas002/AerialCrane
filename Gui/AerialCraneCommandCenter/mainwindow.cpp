@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->open_dev,SIGNAL(clicked()), this, SLOT(open_camera()));
     connect(ui->get_frame,SIGNAL(clicked()), this, SLOT(update_frame()));
+
+    ui->label_2->setScaledContents( true );
+    ui->label_2->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 }
 
 void MainWindow::open_camera(void){

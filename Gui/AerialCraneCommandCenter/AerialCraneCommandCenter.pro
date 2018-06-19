@@ -42,14 +42,14 @@ SOURCES += \
         vehicle.cpp \
         decodemavpackets.cpp \
         connection.cpp \
-    imageviewer.cpp
+    imageprocessing.cpp
 
 HEADERS += \
         mainwindow.h \
         vehicle.h \
         decodemavpackets.h \
         connection.h \
-    imageviewer.h
+    imageprocessing.h
 
 FORMS += \
         mainwindow.ui
