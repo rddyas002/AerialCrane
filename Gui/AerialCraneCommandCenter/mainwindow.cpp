@@ -2,12 +2,15 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QScrollBar>
+#include <QMessageBox>
 
 #define MAVLINK_UDP_IP      "10.24.5.30"
 #define MAVLINK_UDP_LOCAL   "127.0.0.1"
 #define MAVLINK_UDP_IP2      "192.168.4.2"
 #define MAVLINK_UDP_PORT1    14550
 #define MAVLINK_UDP_PORT2    14560
+
+using namespace cv;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,6 +29,35 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btn_arm,SIGNAL(clicked()), this, SLOT(setArm1()));
     connect(ui->btn_stream,SIGNAL(clicked()), this, SLOT(setStream1()));
     connect(ui->btn_land,SIGNAL(clicked()), this, SLOT(land1()));
+
+    connect(ui->open_dev,SIGNAL(clicked()), this, SLOT(open_camera()));
+    connect(ui->get_frame,SIGNAL(clicked()), this, SLOT(update_frame()));
+}
+
+void MainWindow::open_camera(void){
+    if(!capture.open("C:/work/AerialCrane/Gui/videos/chaplin.mp4")){
+        QMessageBox::critical(this, "Video Error", "Make sure you entered a correct and supported video file path," "<br>or a correct RTSP feed URL!");
+    }
+}
+
+void MainWindow::update_frame(void){
+    if (capture.isOpened()){
+        capture >> frame;
+        if(!frame.empty())
+        {
+            if (frame.channels()== 3){
+                cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+                img = QImage((const unsigned char*)(RGBframe.data), RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
+            }
+            else
+            {
+                img = QImage((const unsigned char*)(frame.data), frame.cols,frame.rows,QImage::Format_Indexed8);
+            }
+            ui->label_2->setAlignment(Qt::AlignCenter);
+            ui->label_2->setPixmap(QPixmap::fromImage(img).scaled(ui->label->size(), Qt::KeepAspectRatio, Qt::FastTransformation));
+            imshow("Tracking", frame);
+        }
+    }
 }
 
 void MainWindow::switchGuidedMode1(){
@@ -164,6 +196,15 @@ void MainWindow::disconnect_helicopter1(){
 void MainWindow::disconnect_helicopter2(){
     if (vehicles[1] != NULL)
         delete vehicles[1];
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(capture.isOpened())
+    {
+        capture.release();
+        event->accept();
+    }
 }
 
 MainWindow::~MainWindow()

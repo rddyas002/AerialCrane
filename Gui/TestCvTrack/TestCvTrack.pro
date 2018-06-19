@@ -1,18 +1,10 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2018-06-02T15:47:34
-#
-#-------------------------------------------------
+QT -= gui
 
-QT       += core gui serialport network
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = AerialCraneCommandCenter
-TEMPLATE = app
+CONFIG += c++11 console
+CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
-# any feature of Qt which has been marked as deprecated (the exact warnings
+# any feature of Qt which as been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -36,20 +28,6 @@ LIBS += C:\opencv-build\bin\libopencv_video320.dll
 LIBS += C:\opencv-build\bin\libopencv_videoio320.dll
 }
 
+
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-        vehicle.cpp \
-        decodemavpackets.cpp \
-        connection.cpp \
-    imageviewer.cpp
-
-HEADERS += \
-        mainwindow.h \
-        vehicle.h \
-        decodemavpackets.h \
-        connection.h \
-    imageviewer.h
-
-FORMS += \
-        mainwindow.ui
+        main.cpp
