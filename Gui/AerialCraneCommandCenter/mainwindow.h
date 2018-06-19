@@ -12,18 +12,12 @@
 #include <QWaitCondition>
 #include <QCloseEvent>
 
-
-#include <opencv2/opencv.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-
-
 #include "lib/c_library_v1/ardupilotmega/mavlink.h"
 
 #include "connection.h"
 #include "decodemavpackets.h"
 #include "vehicle.h"
+#include "imageprocessing.h"
 
 #define MAX_MAV_VEHICLES    3
 
@@ -58,18 +52,9 @@ public slots:
     void update_gps_raw1(const mavlink_gps_raw_int_t *mavlink_gps_raw_int);
     void update_heartbeat1(const mavlink_heartbeat_t *mavlink_heartbeat);
     void update_local_position1(const mavlink_local_position_ned_t *mavlink_local_position_ned);
-
-    void update_frame(void);
-    void open_camera(void);
 private:
     Ui::MainWindow *ui;
     Vehicle *vehicles[MAX_MAV_VEHICLES];
-
-    Mat frame;
-    int frameRate;
-    VideoCapture capture;
-    Mat RGBframe;
-    QImage img;
 
 protected:
     void closeEvent(QCloseEvent *event);

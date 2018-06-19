@@ -1,5 +1,5 @@
 #include <QCoreApplication>
-
+#include <QDebug>
 #include <opencv2/opencv.hpp>
 #include <opencv2/tracking.hpp>
 #include <opencv2/core/ocl.hpp>
@@ -43,8 +43,12 @@ int main(int argc, char *argv[])
             tracker = TrackerGOTURN::create();
     }
     #endif
+
     // Read video
-    VideoCapture video(0);//"C:/work/AerialCrane/Gui/videos/chaplin.mp4");
+    VideoCapture video;//("/home/yashren/work/AerialCrane/Gui/videos/chaplin.mp4");
+    if(!video.open(1)){
+        qDebug() << "Error opening video device";
+    }
 
     // Exit if video is not opened
     if(!video.isOpened())
@@ -111,10 +115,4 @@ int main(int argc, char *argv[])
 
     }
     return 0;
-
-    /*
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
-    */
 }
