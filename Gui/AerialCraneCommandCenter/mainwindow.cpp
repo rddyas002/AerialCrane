@@ -12,9 +12,7 @@
 
 using namespace cv;
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent, ImageProcessing *imProc) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -29,6 +27,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btn_arm,SIGNAL(clicked()), this, SLOT(setArm1()));
     connect(ui->btn_stream,SIGNAL(clicked()), this, SLOT(setStream1()));
     connect(ui->btn_land,SIGNAL(clicked()), this, SLOT(land1()));
+
+    connect(ui->open_dev,SIGNAL(clicked()), this, SLOT(openDevice()));
+    connect(ui->close_dev,SIGNAL(clicked()), this, SLOT(closeDevice()));
+
+    imageProcessing = imProc;
+}
+
+void MainWindow::openDevice(void){
+    imageProcessing->openDevice(ui->devId->value());
+    imageProcessing->start(QThread::HighestPriority);
+}
+
+void MainWindow::closeDevice(void){
+    imageProcessing->closeDevice();
 }
 
 void MainWindow::switchGuidedMode1(){

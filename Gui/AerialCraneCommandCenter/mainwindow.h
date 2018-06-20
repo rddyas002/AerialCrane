@@ -31,7 +31,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent, ImageProcessing *imProc);
     ~MainWindow();
 
 public slots:
@@ -52,9 +52,13 @@ public slots:
     void update_gps_raw1(const mavlink_gps_raw_int_t *mavlink_gps_raw_int);
     void update_heartbeat1(const mavlink_heartbeat_t *mavlink_heartbeat);
     void update_local_position1(const mavlink_local_position_ned_t *mavlink_local_position_ned);
+
+    void openDevice(void);
+    void closeDevice(void);
 private:
     Ui::MainWindow *ui;
     Vehicle *vehicles[MAX_MAV_VEHICLES];
+    ImageProcessing *imageProcessing;
 
 protected:
     void closeEvent(QCloseEvent *event);

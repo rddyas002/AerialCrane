@@ -27,14 +27,15 @@ class ImageProcessing : public QThread
     Q_OBJECT
 public:
     explicit ImageProcessing();
+    void openDevice(int dev);
+    void closeDevice(void);
     ~ImageProcessing();
-    void run();
+    void run() override;
 signals:
 
 public slots:
 
 private:
-    QTimer * captureTimer;
     QMutex mutex;
     volatile bool mShutdown;
 

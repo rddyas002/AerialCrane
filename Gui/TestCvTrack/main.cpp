@@ -45,10 +45,7 @@ int main(int argc, char *argv[])
     #endif
 
     // Read video
-    VideoCapture video;//("/home/yashren/work/AerialCrane/Gui/videos/chaplin.mp4");
-    if(!video.open(1)){
-        qDebug() << "Error opening video device";
-    }
+    VideoCapture video("C:/work/AerialCrane/Gui/videos/chaplin.mp4");
 
     // Exit if video is not opened
     if(!video.isOpened())
