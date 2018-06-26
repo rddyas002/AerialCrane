@@ -46,7 +46,7 @@ void ImageProcessing::run(){
             capture >> frame;
             if(!frame.empty()){
                 // Display FPS on frame
-                putText(frame, "FPS : " + SSTR(int(fps)), Point(100,50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
+                putText(frame, "FPS : " + SSTR(int(fps)), Point(50,50), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(50,170,50), 2);
                 imshow("Tracking", frame);
                 int k = waitKey(1);
             }
